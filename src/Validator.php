@@ -7,19 +7,27 @@ class Validator
      *
      * @param array $values
      * @param array $rules
+     * @param array $customAttributes
      * @return bool
      * @throws ExceptionAttrs
      */
-    public static function validate(array $values, array $rules)
+    public static function validate(array $values, array $rules, array $customAttributes = [])
     {
         // Carregar lista de regras com as variaveis
         $rules = self::getRules($values, $rules);
 
+        // Traduzir custom attributes
+        foreach ($customAttributes as $k => $v) {
+            $customAttributes[$k] = trans($v);
+        }
+
         // Processar regras
-        $validator = validator()->make($values, $rules);
+        $validator = validator()->make($values, $rules, [], $customAttributes);
         if ($validator->fails()) {
             $messages = $validator->messages();
             $items = $messages->toArray();
+
+            // Traduzxir
 
             throw new ExceptionAttrs(trans('validation.errors.attributes'), 0, $items);
         }

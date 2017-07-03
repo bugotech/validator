@@ -12,16 +12,30 @@ class ExceptionAttrs extends Exception
     protected $attrs = [];
 
     /**
+     * Lista de mensagens por atributo com o o key traduzido.
+     * @var array
+     */
+    protected $attrsCustom = [];
+
+    /**
      * @var Application
      */
     protected $app;
 
-    public function __construct($message = '', $code = 0, array $attrs = [], \Exception $previous = null)
+    /**
+     * @param string $message
+     * @param int $code
+     * @param array $attrs
+     * @param array $attrsCustom
+     * @param Exception $previous
+     */
+    public function __construct($message = '', $code = 0, array $attrs = [], array $attrsCustom = [], \Exception $previous = null)
     {
         $this->app = app();
         $this->attrs = $attrs;
+        $this->attrsCustom = array_merge([], $attrs, $attrsCustom);
 
-        $message = $this->app->runningInConsole() ? self::makeMsgs($message, $attrs) : $message;
+        $message = $this->app->runningInConsole() ? self::makeMsgs($message, $this->attrsCustom) : $message;
 
         parent::__construct($message, $code, $previous);
     }
@@ -37,13 +51,23 @@ class ExceptionAttrs extends Exception
     }
 
     /**
+     * Retorna as mensagens dos atributos.
+     *
+     * @return array
+     */
+    public function getAttrsCustom()
+    {
+        return $this->attrsCustom;
+    }
+
+    /**
      * Retornar a mensagem com as mensagens dos campos se houver.
      *
      * @return string
      */
     public function toMessageStr()
     {
-        return $this->app->runningInConsole() ? $this->getMessage() : self::makeMsgs($this->getMessage(), $this->getAttrs());
+        return $this->app->runningInConsole() ? $this->getMessage() : self::makeMsgs($this->getMessage(), $this->getAttrsCustom());
     }
 
     /**
