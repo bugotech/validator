@@ -1,0 +1,29 @@
+{
+    "name"       : "bugotech/validator",
+    "description": "The Bugotech Validator package.",
+    "homepage"   : "http://www.netforce.com.br",
+    "license"    : "GPL v.3",
+
+    "authors": [
+        {
+            "name" : "Bruno Gonçalves",
+            "email": "bugotech@gmail.com"
+        }
+    ],
+
+    "require": {
+        "illuminate/validation": "5.2.*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Bugotech\\Validator\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+
+    "minimum-stability": "dev",
+    "prefer-stable"    : true
+}
