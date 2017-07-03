@@ -68,14 +68,14 @@ class Rules
      */
     public function checkpass($attribute, $value, $parameters)
     {
-        if (auth()::check() != true) {
+        if (auth()->check() != true) {
             return false;
         }
 
         // Validar
-        $user = auth()::user();
+        $user = auth()->user();
         $credentials = ['email' => $user->email, 'password' => $value];
 
-        return auth()::validate($credentials);
+        return auth()->validate($credentials);
     }
 }
