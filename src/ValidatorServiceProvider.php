@@ -33,7 +33,7 @@ class ValidatorServiceProvider extends ValidationServiceProvider
      */
     public function boot()
     {
-        parent::boot();
+        //parent::boot();
 
         // Registrar novas regras
         foreach ($this->extendRules as $name => $info) {
