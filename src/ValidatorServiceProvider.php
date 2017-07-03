@@ -17,6 +17,18 @@ class ValidatorServiceProvider extends ValidationServiceProvider
     ];
 
     /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        parent::register();
+
+        $this->app->alias('validator', 'Illuminate\Contracts\Validation\Factory');
+    }
+
+    /**
      * Boot do Provider.
      */
     public function boot()
