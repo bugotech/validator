@@ -33,7 +33,7 @@ class Validator
                 $itemsCustom[$a] = $items[$o];
             }
 
-            throw new ExceptionAttrs(trans('validation.errors.attributes'), 0, $items);
+            throw new ExceptionAttrs(trans('validation.errors.attributes'), 0, $items, $itemsCustom);
         }
 
         return true;
