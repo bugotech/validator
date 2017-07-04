@@ -33,7 +33,7 @@ class ExceptionAttrs extends Exception
     {
         $this->app = app();
         $this->attrs = $attrs;
-        $this->attrsCustom = array_merge([], $attrs, $attrsCustom);
+        $this->attrsCustom = (count($attrsCustom) == 0) ? $attrs : $attrsCustom;
 
         $message = $this->app->runningInConsole() ? self::makeMsgs($message, $this->attrsCustom) : $message;
 
