@@ -30,7 +30,9 @@ class Validator
             // Traduzxir
             $itemsCustom = [];
             foreach ($customAttributes as $o => $a) {
-                $itemsCustom[$a] = $items[$o];
+                if (array_key_exists($o, $items)) {
+                    $itemsCustom[$a] = $items[$o];
+                }
             }
 
             throw new ExceptionAttrs(trans('validation.errors.attributes'), 0, $items, $itemsCustom);
