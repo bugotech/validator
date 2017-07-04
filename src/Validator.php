@@ -28,6 +28,10 @@ class Validator
             $items = $messages->toArray();
 
             // Traduzxir
+            $itemsCustom = [];
+            foreach ($customAttributes as $o => $a) {
+                $itemsCustom[$a] = $items[$o];
+            }
 
             throw new ExceptionAttrs(trans('validation.errors.attributes'), 0, $items);
         }
